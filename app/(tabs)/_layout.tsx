@@ -52,6 +52,14 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
+                name="menu"
+                options={{
+                    title: t('tabs.menu'),
+                    tabBarIcon: ({ color, size }) => <Ionicons name="apps" size={size} color={color} />,
+                    headerShown: true,
+                }}
+            />
+            <Tabs.Screen
                 name="profile"
                 options={{
                     title: t('tabs.profile'),

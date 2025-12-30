@@ -121,7 +121,9 @@ export default function LoginScreen() {
                   style={[styles.demoChip, { backgroundColor: colors.surface, borderColor: colors.border }]}
                   onPress={() => useDemo(acc)}
                 >
-                  <Text style={[styles.demoChipText, { color: colors.text }]}>{acc.role.toUpperCase()}</Text>
+                  <Text style={[styles.demoChipText, { color: colors.text }]}>
+                    {acc.role === 'teacher' ? 'TEACHER' : acc.role.toUpperCase()}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>

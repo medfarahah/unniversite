@@ -13,55 +13,71 @@ export default function AnnouncementsScreen() {
     const [isModalVisible, setModalVisible] = useState(false);
     const [newAnn, setNewAnn] = useState({ title: '', content: '' });
 
-    const isDelegate = user?.role === 'delegate' || user?.role === 'admin';
+    const canCreate = user?.role === 'admin' || user?.role === 'delegate' || user?.role === 'teacher';
 
-    const renderAnnouncement = ({ item }: { item: any }) => (
-        <View style={[styles.card, { backgroundColor: colors.surface }]}>
-            <View style={styles.cardHeader}>
-                <View>
-                    <Text style={[styles.author, { color: colors.primary }]}>{item.author}</Text>
-                    <Text style={[styles.date, { color: colors.textSecondary }]}>{item.date}</Text>
-                </View>
-                {isDelegate && (
-                    <TouchableOpacity style={styles.moreBtn}>
-                        <Ionicons name="ellipsis-vertical" size={20} color={colors.textSecondary} />
-                    </TouchableOpacity>
-                )}
-            </View>
-            <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>
-            <Text style={[styles.content, { color: colors.textSecondary }]}>{item.content}</Text>
+    const filteredAnnouncements = MOCK_ANNOUNCEMENTS.filter(ann => {
+        if (ann.isGlobal) return true;
+        if (user?.role === 'admin') return true;
+        return ann.department === user?.department && ann.level === user?.level;
+    });
 
-            <View style={[styles.cardFooter, { borderTopColor: colors.border }]}>
-                <TouchableOpacity style={styles.actionBtn}>
-                    <Ionicons name="chatbubble-outline" size={18} color={colors.textSecondary} />
-                    <Text style={[styles.actionText, { color: colors.textSecondary }]}>
-                        {item.comments.length} {t('announcements.comments')}
-                    </Text>
-                </TouchableOpacity>
-                {isDelegate && (
-                    <View style={styles.delegateActions}>
-                        <TouchableOpacity style={styles.iconAction}>
-                            <Ionicons name="create-outline" size={18} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.iconAction}>
-                            <Ionicons name="trash-outline" size={18} color={colors.error} />
-                        </TouchableOpacity>
+    const renderAnnouncement = ({ item }: { item: any }) => {
+        const isAuthor = item.authorId === user?.id;
+        const canManage = user?.role === 'admin' || isAuthor;
+
+        return (
+            <View style={[styles.card, { backgroundColor: colors.surface }]}>
+                <View style={styles.cardHeader}>
+                    <View>
+                        <View style={styles.typeTag}>
+                            <Text style={[styles.typeText, { color: item.isGlobal ? colors.primary : colors.accent }]}>
+                                {item.isGlobal ? "University Announcement" : `Class Announcement • ${item.level} ${item.department === 'Computer Science' ? 'CS' : 'IT'}`}
+                            </Text>
+                        </View>
+                        <Text style={[styles.author, { color: colors.text }]}>{item.author}</Text>
+                        <Text style={[styles.date, { color: colors.textSecondary }]}>{item.date}</Text>
                     </View>
-                )}
+                    {canManage && (
+                        <TouchableOpacity style={styles.moreBtn}>
+                            <Ionicons name="ellipsis-vertical" size={20} color={colors.textSecondary} />
+                        </TouchableOpacity>
+                    )}
+                </View>
+                <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>
+                <Text style={[styles.content, { color: colors.textSecondary }]}>{item.content}</Text>
+
+                <View style={[styles.cardFooter, { borderTopColor: colors.border }]}>
+                    <TouchableOpacity style={styles.actionBtn}>
+                        <Ionicons name="chatbubble-outline" size={18} color={colors.textSecondary} />
+                        <Text style={[styles.actionText, { color: colors.textSecondary }]}>
+                            {item.comments ? item.comments.length : 0} {t('announcements.comments')}
+                        </Text>
+                    </TouchableOpacity>
+                    {canManage && (
+                        <View style={styles.delegateActions}>
+                            <TouchableOpacity style={styles.iconAction}>
+                                <Ionicons name="create-outline" size={18} color={colors.primary} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.iconAction}>
+                                <Ionicons name="trash-outline" size={18} color={colors.error} />
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </View>
             </View>
-        </View>
-    );
+        );
+    };
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <FlatList
-                data={MOCK_ANNOUNCEMENTS}
+                data={filteredAnnouncements}
                 renderItem={renderAnnouncement}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.list}
             />
 
-            {isDelegate && (
+            {canCreate && (
                 <TouchableOpacity
                     style={[styles.fab, { backgroundColor: colors.primary }]}
                     onPress={() => setModalVisible(true)}
@@ -132,12 +148,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 12,
     },
+    typeTag: {
+        marginBottom: 6,
+    },
+    typeText: {
+        fontSize: 11,
+        fontWeight: '800',
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+    },
     author: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '700',
     },
     date: {
         fontSize: 12,
+        marginTop: 2,
     },
     title: {
         fontSize: 18,

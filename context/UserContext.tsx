@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-export type UserRole = 'student' | 'delegate' | 'admin';
+export type UserRole = 'student' | 'delegate' | 'teacher' | 'admin';
 
 interface User {
     id: string;
@@ -32,20 +32,28 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 staffId: 'STAFF-12345',
                 title: 'University Dean',
             });
+        } else if (role === 'teacher') {
+            setUser({
+                id: 'TCH-007',
+                name: 'Dr. Elena Vance',
+                role: 'teacher',
+                department: 'Computer Science',
+                staffId: 'STAFF-55667',
+                title: 'Senior Professor',
+            });
         } else if (role === 'delegate') {
             setUser({
-                id: 'PRF-DLG-789',
-                name: 'Prof. Sarah Johnson (Delegate)',
+                id: '20230999',
+                name: 'Aisha Hassan',
                 role: 'delegate',
-                department: 'Software Engineering',
-                level: 'Faculty Level',
-                staffId: 'DLG-98765',
-                title: 'Professor Assistant / Delegate',
+                department: 'Computer Science',
+                level: '3rd Year',
+                title: 'Class Delegate',
             });
         } else {
             setUser({
                 id: '20230889',
-                name: 'John Doe',
+                name: 'Abdifah Ahmed',
                 role: 'student',
                 department: 'Computer Science',
                 level: '3rd Year',

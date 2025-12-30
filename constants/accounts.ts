@@ -7,6 +7,11 @@ export const DEMO_ACCOUNTS = [
     {
         email: 'prof@uni.edu',
         password: '123',
+        role: 'teacher',
+    },
+    {
+        email: 'delegate@uni.edu',
+        password: '123',
         role: 'delegate',
     },
     {

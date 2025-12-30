@@ -57,13 +57,13 @@ export default function HomeScreen() {
                                 title={t('tabs.timetable')}
                                 icon="calendar"
                                 color="#3B82F6"
-                                route="/(screens)/timetable"
+                                route="/timetable"
                             />
                             <QuickAction
                                 title={t('tabs.grades')}
                                 icon="school"
                                 color="#F59E0B"
-                                route="/(screens)/grades"
+                                route="/grades"
                             />
                         </>
                     )}
@@ -74,13 +74,13 @@ export default function HomeScreen() {
                                 title="Manage Schedule"
                                 icon="calendar"
                                 color="#3B82F6"
-                                route="/(screens)/timetable"
+                                route="/timetable"
                             />
                             <QuickAction
                                 title="Update Grades"
                                 icon="create"
                                 color="#F59E0B"
-                                route="/(screens)/grades"
+                                route="/grades"
                             />
                             <QuickAction
                                 title="Attendance"
@@ -95,19 +95,19 @@ export default function HomeScreen() {
                         title={t('tabs.announcements')}
                         icon="megaphone"
                         color="#EC4899"
-                        route="/(tabs)/announcements"
+                        route="/announcements"
                     />
                     <QuickAction
                         title={t('tabs.groups')}
                         icon="chatbubbles"
                         color="#10B981"
-                        route="/(tabs)/groups"
+                        route="/groups"
                     />
                 </View>
 
                 <View style={styles.recentHeader}>
                     <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('home.recentAnnouncements')}</Text>
-                    <TouchableOpacity onPress={() => router.push('/(tabs)/announcements')}>
+                    <TouchableOpacity onPress={() => router.push('/announcements')}>
                         <Text style={{ color: colors.primary }}>{t('home.viewAll')}</Text>
                     </TouchableOpacity>
                 </View>

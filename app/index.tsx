@@ -31,7 +31,7 @@ export default function LoginScreen() {
       setTimeout(() => {
         setRole(account.role as UserRole);
         setIsLoading(false);
-        router.replace('/(tabs)/home');
+        router.replace('/home');
       }, 1000);
     } else {
       Alert.alert("Login Failed", "Invalid email or password. Use demo accounts provided below.");

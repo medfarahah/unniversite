@@ -18,7 +18,7 @@ export default function GroupsScreen() {
     const renderGroup = ({ item }: { item: any }) => (
         <TouchableOpacity
             style={[styles.groupCard, { backgroundColor: colors.surface }]}
-            onPress={() => router.push({ pathname: '/(screens)/chat', params: { id: item.id, name: item.name } })}
+            onPress={() => router.push({ pathname: '/chat', params: { id: item.id, name: item.name } })}
         >
             <View style={[styles.groupIcon, { backgroundColor: colors.primary + '15' }]}>
                 <Ionicons name="people" color={colors.primary} size={24} />

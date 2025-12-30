@@ -1,24 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import * as SystemUI from "expo-system-ui";
+import { useEffect } from "react";
+import { I18nextProvider } from "react-i18next";
+import { Platform } from "react-native";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
+import { UserProvider } from "../context/UserContext";
+import i18n from "../i18n";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+function AppContent() {
+  const { colors, isDark } = useTheme();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      SystemUI.setBackgroundColorAsync(colors.background);
+    }
+  }, [colors.background]);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+    <>
+      <StatusBar style={isDark ? "light" : "dark"} />
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colors.surface,
+          },
+          headerTintColor: colors.text,
+          headerShadowVisible: false,
+          contentStyle: {
+            backgroundColor: colors.background,
+          },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider>
+        <UserProvider>
+          <AppContent />
+        </UserProvider>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 }

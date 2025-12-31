@@ -268,6 +268,69 @@ export const MOCK_ACADEMIC_STATUS = {
     probation: false,
 };
 
+export const MOCK_STUDENT_ATTENDANCE = [
+    {
+        courseId: 'CS301',
+        courseCode: 'CS301',
+        courseName: 'Operating Systems',
+        totalClasses: 30,
+        present: 28,
+        absent: 2,
+        attendanceRate: 93.3,
+        instructor: 'Dr. Aisha Ahmed',
+    },
+    {
+        courseId: 'CS302',
+        courseCode: 'CS302',
+        courseName: 'Computer Networks',
+        totalClasses: 20,
+        present: 19,
+        absent: 1,
+        attendanceRate: 95.0,
+        instructor: 'Dr. Hassan Mohamed',
+    },
+    {
+        courseId: 'CS303',
+        courseCode: 'CS303',
+        courseName: 'Database Systems',
+        totalClasses: 28,
+        present: 26,
+        absent: 2,
+        attendanceRate: 92.9,
+        instructor: 'Dr. Fatima Ali',
+    },
+    {
+        courseId: 'CS304',
+        courseCode: 'CS304',
+        courseName: 'Web Development',
+        totalClasses: 18,
+        present: 17,
+        absent: 1,
+        attendanceRate: 94.4,
+        instructor: 'Dr. Aisha Ahmed',
+    },
+    {
+        courseId: 'CS305',
+        courseCode: 'CS305',
+        courseName: 'Human Computer Interaction',
+        totalClasses: 22,
+        present: 20,
+        absent: 2,
+        attendanceRate: 90.9,
+        instructor: 'Dr. Mohamed Farah',
+    },
+    {
+        courseId: 'CS306',
+        courseCode: 'CS306',
+        courseName: 'Cloud Computing',
+        totalClasses: 24,
+        present: 23,
+        absent: 1,
+        attendanceRate: 95.8,
+        instructor: 'Dr. Hassan Mohamed',
+    },
+];
+
 export const MOCK_COURSES = [
     {
         id: 'CS301',

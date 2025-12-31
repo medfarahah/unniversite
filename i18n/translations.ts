@@ -189,6 +189,17 @@ export const en = {
     assessment: "Assessments",
     assignment: "Assignments",
     noResources: "No resources available for this course yet.",
+  },
+  attendance: {
+    myAttendance: "My Attendance",
+    summary: "Summary",
+    byCourse: "Attendance by Course",
+    present: "Present",
+    absent: "Absent",
+    total: "Total",
+    totalAbsences: "Total Absences",
+    courses: "Courses",
+    submitRecords: "Submit Records",
   }
 };
 
@@ -382,6 +393,17 @@ export const fr = {
     assessment: "Évaluations",
     assignment: "Devoirs",
     noResources: "Aucune ressource disponible pour ce cours pour le moment.",
+  },
+  attendance: {
+    myAttendance: "Ma Présence",
+    summary: "Résumé",
+    byCourse: "Présence par Cours",
+    present: "Présent",
+    absent: "Absent",
+    total: "Total",
+    totalAbsences: "Total des Absences",
+    courses: "Cours",
+    submitRecords: "Soumettre les Enregistrements",
   }
 };
 
@@ -575,5 +597,16 @@ export const ar = {
     assessment: "التقييمات",
     assignment: "الواجبات",
     noResources: "لا توجد موارد متاحة لهذه الدورة بعد.",
+  },
+  attendance: {
+    myAttendance: "حضوري",
+    summary: "ملخص",
+    byCourse: "الحضور حسب الدورة",
+    present: "حاضر",
+    absent: "غائب",
+    total: "الإجمالي",
+    totalAbsences: "إجمالي الغيابات",
+    courses: "الدورات",
+    submitRecords: "إرسال السجلات",
   }
 };

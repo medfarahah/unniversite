@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 import { MOCK_ACADEMIC_STATUS } from '../../constants/mockData';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
@@ -22,7 +23,11 @@ export default function StudentCardScreen() {
                     {/* Card Header */}
                     <View style={[styles.cardHeader, { backgroundColor: colors.primary }]}>
                         <View style={styles.logoContainer}>
-                            <Ionicons name="school" size={32} color="#FFF" />
+                            <Image
+                                source={require('../../assets/images/logo.jpeg')}
+                                style={styles.logoImage}
+                                contentFit="contain"
+                            />
                         </View>
                         <View style={styles.headerText}>
                             <Text style={styles.universityName}>Académie Arabe</Text>
@@ -147,6 +152,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.2)',
         justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'hidden',
+    },
+    logoImage: {
+        width: '100%',
+        height: '100%',
+    },
+    logoImage: {
+        width: '100%',
+        height: '100%',
     },
     headerText: {
         flex: 1,

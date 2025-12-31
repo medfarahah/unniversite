@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image } from 'expo-image';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
 
@@ -32,6 +33,15 @@ export default function ProfileScreen() {
     return (
         <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
             <View style={styles.header}>
+                <View style={styles.logoSection}>
+                    <View style={styles.logoContainer}>
+                        <Image
+                            source={require('../../assets/images/logo.jpeg')}
+                            style={styles.logo}
+                            contentFit="contain"
+                        />
+                    </View>
+                </View>
                 <View style={[styles.avatarContainer, { borderColor: colors.primary }]}>
                     <Image
                         source={{ uri: 'https://i.pravatar.cc/150?u=' + user?.id }}
@@ -67,6 +77,28 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
         padding: 32,
+    },
+    logoSection: {
+        marginBottom: 16,
+    },
+    logoContainer: {
+        width: 80,
+        height: 80,
+        borderRadius: 16,
+        backgroundColor: '#FFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        padding: 8,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    logo: {
+        width: '100%',
+        height: '100%',
     },
     avatarContainer: {
         width: 120,

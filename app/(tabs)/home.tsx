@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image } from 'expo-image';
 import { MOCK_ACADEMIC_STATUS, MOCK_ANNOUNCEMENTS } from '../../constants/mockData';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
@@ -23,12 +24,21 @@ export default function HomeScreen() {
     return (
         <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
             <View style={[styles.header, { backgroundColor: isAdmin ? colors.accent : (isTeacher ? colors.success : colors.primary) }]}>
-                <View>
-                    <Text style={styles.greeting}>{t('home.greeting', { name: user?.name.split(' ')[0] })}</Text>
-                    <Text style={styles.department}>
-                        {user?.title} • {user?.id}
-                    </Text>
-                    {!isAdmin && <Text style={styles.subDept}>{user?.department}</Text>}
+                <View style={styles.headerLeft}>
+                    <View style={styles.headerLogoContainer}>
+                        <Image
+                            source={require('../../assets/images/logo.jpeg')}
+                            style={styles.headerLogo}
+                            contentFit="contain"
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.greeting}>{t('home.greeting', { name: user?.name.split(' ')[0] })}</Text>
+                        <Text style={styles.department}>
+                            {user?.title} • {user?.id}
+                        </Text>
+                        {!isAdmin && <Text style={styles.subDept}>{user?.department}</Text>}
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.notificationBtn}>
                     {isAdmin ? <Ionicons name="shield-checkmark" color="#FFF" size={24} /> : <Ionicons name="notifications" color="#FFF" size={24} />}
@@ -257,6 +267,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    headerLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        flex: 1,
+    },
+    headerLogoContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: 12,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        padding: 4,
+    },
+    headerLogo: {
+        width: '100%',
+        height: '100%',
     },
     greeting: {
         fontSize: 24,

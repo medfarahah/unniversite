@@ -116,23 +116,23 @@ export const MOCK_GROUPS = [
 ];
 
 export const MOCK_TIMETABLE = {
-    Monday: [
+    Sunday: [
         { id: 't1', subject: 'Software Engineering', time: '09:00 - 11:00', room: 'Hall A' },
         { id: 't2', subject: 'Database Systems', time: '13:00 - 15:00', room: 'Room 302' },
     ],
-    Tuesday: [
+    Monday: [
         { id: 't3', subject: 'Web Development', time: '10:00 - 12:00', room: 'Lab 1' },
         { id: 't8', subject: 'AI Foundations', time: '14:00 - 16:00', room: 'Room 405' },
     ],
-    Wednesday: [
+    Tuesday: [
         { id: 't4', subject: 'Cloud Computing', time: '09:00 - 11:00', room: 'Hall B' },
         { id: 't5', subject: 'Machine Learning', time: '14:00 - 16:00', room: 'Lab 2' },
     ],
-    Thursday: [
+    Wednesday: [
         { id: 't6', subject: 'Network Security', time: '11:00 - 13:00', room: 'Room 101' },
         { id: 't9', subject: 'Mobile App Dev', time: '15:00 - 17:00', room: 'Lab 3' },
     ],
-    Friday: [
+    Thursday: [
         { id: 't7', subject: 'Professional Ethics', time: '09:00 - 11:00', room: 'Hall C' },
     ],
 };

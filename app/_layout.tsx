@@ -76,6 +76,10 @@ function AppContent() {
         <Stack.Screen name="(screens)/student-card" options={{ title: "Student Card", headerShown: true }} />
         <Stack.Screen name="(screens)/courses" options={{ title: "Courses", headerShown: true }} />
         <Stack.Screen name="(screens)/course-detail" options={{ title: "Course Details", headerShown: true }} />
+        <Stack.Screen name="(screens)/user-management" options={{ title: "User Management", headerShown: true }} />
+        <Stack.Screen name="(screens)/system-settings" options={{ title: "System Settings", headerShown: true }} />
+        <Stack.Screen name="(screens)/reports" options={{ title: "Reports & Analytics", headerShown: true }} />
+        <Stack.Screen name="(screens)/term-certificate" options={{ title: "Term Certificate", headerShown: true }} />
       </Stack>
     </>
   );

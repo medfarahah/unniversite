@@ -16,7 +16,7 @@ interface MenuItem {
     color: string;
     route: string;
     category: string;
-    role?: 'teacher' | 'student';
+    role?: 'admin' | 'teacher' | 'student';
 }
 
 export default function MenuScreen() {
@@ -32,46 +32,72 @@ export default function MenuScreen() {
     const isStudent = user?.role === 'student' || isDelegate;
 
     const allMenuItems: MenuItem[] = [
-        // Academic Features
-        { title: t('tabs.timetable'), icon: 'calendar', color: '#3B82F6', route: '/timetable', category: 'academic' },
-        { title: 'Courses', icon: 'book', color: '#8B5CF6', route: '/(screens)/courses', category: 'academic' },
-        { title: t('tabs.grades'), icon: 'school', color: '#F59E0B', route: '/grades', category: 'academic' },
-        { title: 'Exam Calendar', icon: 'calendar-outline', color: '#EC4899', route: '/(screens)/exam-calendar', category: 'academic' },
-        { title: 'Academic Status', icon: 'document-text', color: '#10B981', route: '/(screens)/academic-status', category: 'academic' },
-        { title: 'Exam Results', icon: 'trophy', color: '#F59E0B', route: '/(screens)/exam-results', category: 'academic' },
+        // Admin - Full Management Access
+        { title: 'User Management', icon: 'people', color: '#6366F1', route: '/(screens)/user-management', category: 'admin', role: 'admin' },
+        { title: 'System Settings', icon: 'settings', color: '#6B7280', route: '/(screens)/system-settings', category: 'admin', role: 'admin' },
+        { title: 'Reports & Analytics', icon: 'bar-chart', color: '#10B981', route: '/(screens)/reports', category: 'admin', role: 'admin' },
+        { title: 'Manage All Courses', icon: 'book', color: '#8B5CF6', route: '/(screens)/courses', category: 'admin', role: 'admin' },
+        { title: 'Manage All Announcements', icon: 'megaphone', color: '#EC4899', route: '/announcements', category: 'admin', role: 'admin' },
+        { title: 'Manage All Grades', icon: 'create', color: '#F59E0B', route: '/grades', category: 'admin', role: 'admin' },
+        { title: 'Manage Timetable', icon: 'calendar', color: '#3B82F6', route: '/timetable', category: 'admin', role: 'admin' },
+        { title: 'Manage Attendance', icon: 'list', color: '#22C55E', route: '/(screens)/attendance', category: 'admin', role: 'admin' },
+        { title: 'Manage Resources', icon: 'document-text', color: '#8B5CF6', route: '/(screens)/resources', category: 'admin', role: 'admin' },
+        { title: 'Manage Exam Calendar', icon: 'calendar-outline', color: '#EC4899', route: '/(screens)/exam-calendar', category: 'admin', role: 'admin' },
+        { title: 'Manage Exam Results', icon: 'trophy', color: '#F59E0B', route: '/(screens)/exam-results', category: 'admin', role: 'admin' },
+        { title: 'View All Groups', icon: 'chatbubbles', color: '#10B981', route: '/groups', category: 'admin', role: 'admin' },
         
-        // Communication
-        { title: t('tabs.announcements'), icon: 'megaphone', color: '#EC4899', route: '/announcements', category: 'communication' },
-        { title: t('tabs.groups'), icon: 'chatbubbles', color: '#10B981', route: '/groups', category: 'communication' },
-        
-        // Teacher Tools
+        // Teacher Only Features
         { title: 'Manage Grades', icon: 'create', color: '#F59E0B', route: '/grades', category: 'teacher', role: 'teacher' },
         { title: 'Course Schedule', icon: 'calendar', color: '#3B82F6', route: '/timetable', category: 'teacher', role: 'teacher' },
         { title: 'Attendance', icon: 'list', color: '#22C55E', route: '/(screens)/attendance', category: 'teacher', role: 'teacher' },
         { title: 'Resources', icon: 'document-text', color: '#8B5CF6', route: '/(screens)/resources', category: 'teacher', role: 'teacher' },
+        { title: 'My Courses', icon: 'book', color: '#8B5CF6', route: '/(screens)/courses', category: 'teacher', role: 'teacher' },
+        { title: t('tabs.announcements'), icon: 'megaphone', color: '#EC4899', route: '/announcements', category: 'teacher', role: 'teacher' },
         
-        // Student Tools
+        // Student Only Features
+        { title: t('tabs.timetable'), icon: 'calendar', color: '#3B82F6', route: '/timetable', category: 'student', role: 'student' },
+        { title: 'Courses', icon: 'book', color: '#8B5CF6', route: '/(screens)/courses', category: 'student', role: 'student' },
+        { title: t('tabs.grades'), icon: 'school', color: '#F59E0B', route: '/grades', category: 'student', role: 'student' },
+        { title: 'Exam Calendar', icon: 'calendar-outline', color: '#EC4899', route: '/(screens)/exam-calendar', category: 'student', role: 'student' },
+        { title: 'Academic Status', icon: 'document-text', color: '#10B981', route: '/(screens)/academic-status', category: 'student', role: 'student' },
+        { title: 'Exam Results', icon: 'trophy', color: '#F59E0B', route: '/(screens)/exam-results', category: 'student', role: 'student' },
         { title: 'Student Card', icon: 'card', color: '#6366F1', route: '/(screens)/student-card', category: 'student', role: 'student' },
+        { title: 'Term Certificate', icon: 'ribbon', color: '#F59E0B', route: '/(screens)/term-certificate', category: 'student', role: 'student' },
         { title: 'Attendance', icon: 'checkmark-circle', color: '#22C55E', route: '/(screens)/attendance', category: 'student', role: 'student' },
         { title: 'Resources', icon: 'folder', color: '#8B5CF6', route: '/(screens)/resources', category: 'student', role: 'student' },
+        { title: t('tabs.announcements'), icon: 'megaphone', color: '#EC4899', route: '/announcements', category: 'student', role: 'student' },
+        { title: t('tabs.groups'), icon: 'chatbubbles', color: '#10B981', route: '/groups', category: 'student', role: 'student' },
         { title: 'Chat', icon: 'chatbubble', color: '#10B981', route: '/(screens)/chat', category: 'student', role: 'student' },
         
-        // Profile & Settings
+        // Common Features (Profile & Settings - available to all)
         { title: t('tabs.profile'), icon: 'person', color: '#6366F1', route: '/profile', category: 'settings' },
         { title: t('tabs.settings'), icon: 'settings', color: '#6B7280', route: '/settings', category: 'settings' },
     ];
 
     const filteredItems = allMenuItems.filter(item => {
+        // If item has a role restriction, only show to that role
+        if (item.role === 'admin' && !isAdmin) return false;
         if (item.role === 'teacher' && !isTeacher) return false;
         if (item.role === 'student' && !isStudent) return false;
+        
+        // If item has a category restriction, only show to that role
+        if (item.category === 'admin' && !isAdmin) return false;
         if (item.category === 'teacher' && !isTeacher) return false;
         if (item.category === 'student' && !isStudent) return false;
+        
+        // Settings category is available to all
+        if (item.category === 'settings') return true;
+        
+        // If no role or category specified, don't show (safety)
+        if (!item.role && item.category !== 'settings') return false;
+        
         return true;
     });
 
     const categories = {
         academic: { title: 'Academic', icon: 'school-outline' },
         communication: { title: 'Communication', icon: 'chatbubbles-outline' },
+        admin: { title: 'Admin Tools', icon: 'shield-checkmark-outline' },
         teacher: { title: 'Teacher Tools', icon: 'person-outline' },
         student: { title: 'Student Tools', icon: 'people-outline' },
         settings: { title: 'Profile & Settings', icon: 'settings-outline' },

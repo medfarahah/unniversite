@@ -7,7 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image } from 'expo-image';
 import { DEMO_ACCOUNTS } from '../constants/accounts';
 import { useTheme } from '../context/ThemeContext';
 import { UserRole, useUser } from '../context/UserContext';
@@ -63,7 +64,7 @@ export default function LoginScreen() {
               <Image
                 source={require('../assets/images/logo.jpeg')}
                 style={styles.logo}
-                resizeMode="contain"
+                contentFit="contain"
               />
             </View>
             <Text style={[styles.title, { color: colors.text }]}>Académie Arabe</Text>

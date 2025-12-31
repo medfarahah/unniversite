@@ -1,14 +1,34 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import { useRouter } from 'expo-router';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { MOCK_ACADEMIC_STATUS } from '../../constants/mockData';
 import { useTheme } from '../../context/ThemeContext';
+import { useUser } from '../../context/UserContext';
 
 export default function AcademicStatusScreen() {
     const { t } = useTranslation();
     const { colors } = useTheme();
+    const { user } = useUser();
+    const router = useRouter();
     const status = MOCK_ACADEMIC_STATUS;
+
+    useEffect(() => {
+        // Only students and delegates can access academic status
+        if (user?.role === 'teacher' || user?.role === 'admin') {
+            Alert.alert(
+                t('academicStatus.accessDenied'),
+                t('academicStatus.teacherAccessDenied'),
+                [{ text: 'OK', onPress: () => router.back() }]
+            );
+        }
+    }, [user]);
+
+    // Don't render if user is not a student
+    if (user?.role === 'teacher' || user?.role === 'admin') {
+        return null;
+    }
 
     const getStatusColor = (standing: string) => {
         if (standing.includes('Good')) return colors.success;

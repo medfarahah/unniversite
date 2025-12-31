@@ -66,14 +66,22 @@ export default function AttendanceScreen() {
         return (
             <View style={[styles.courseCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
                 <View style={styles.courseHeader}>
-                    <View style={[styles.courseCodeBadge, { backgroundColor: colors.primary + '15' }]}>
-                        <Text style={[styles.courseCode, { color: colors.primary }]}>{item.courseCode}</Text>
+                    <View style={[styles.courseIconContainer, { backgroundColor: colors.primary + '15' }]}>
+                        <Ionicons name="book" size={24} color={colors.primary} />
                     </View>
                     <View style={styles.courseInfo}>
-                        <Text style={[styles.courseName, { color: colors.text }]}>{item.courseName}</Text>
-                        <Text style={[styles.instructorName, { color: colors.textSecondary }]}>
-                            {item.instructor}
-                        </Text>
+                        <View style={styles.courseTitleRow}>
+                            <View style={[styles.courseCodeBadge, { backgroundColor: colors.primary + '15' }]}>
+                                <Text style={[styles.courseCode, { color: colors.primary }]}>{item.courseCode}</Text>
+                            </View>
+                            <Text style={[styles.courseName, { color: colors.text }]}>{item.courseName}</Text>
+                        </View>
+                        <View style={styles.instructorRow}>
+                            <Ionicons name="person-outline" size={14} color={colors.textSecondary} />
+                            <Text style={[styles.instructorName, { color: colors.textSecondary }]}>
+                                {item.instructor}
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 
@@ -137,11 +145,19 @@ export default function AttendanceScreen() {
 
                 <View style={styles.content}>
                     <View style={[styles.summaryCard, { backgroundColor: colors.surface }]}>
-                        <Text style={[styles.summaryTitle, { color: colors.text }]}>
-                            {t('attendance.summary')}
-                        </Text>
+                        <View style={styles.summaryHeader}>
+                            <View style={[styles.summaryIconContainer, { backgroundColor: colors.primary + '15' }]}>
+                                <Ionicons name="stats-chart" size={24} color={colors.primary} />
+                            </View>
+                            <Text style={[styles.summaryTitle, { color: colors.text }]}>
+                                {t('attendance.summary')}
+                            </Text>
+                        </View>
                         <View style={styles.summaryStats}>
                             <View style={styles.summaryItem}>
+                                <View style={[styles.summaryItemIcon, { backgroundColor: colors.error + '15' }]}>
+                                    <Ionicons name="close-circle" size={20} color={colors.error} />
+                                </View>
                                 <Text style={[styles.summaryValue, { color: colors.text }]}>
                                     {MOCK_STUDENT_ATTENDANCE.reduce((sum, course) => sum + course.absent, 0)}
                                 </Text>
@@ -150,6 +166,9 @@ export default function AttendanceScreen() {
                                 </Text>
                             </View>
                             <View style={styles.summaryItem}>
+                                <View style={[styles.summaryItemIcon, { backgroundColor: colors.primary + '15' }]}>
+                                    <Ionicons name="book" size={20} color={colors.primary} />
+                                </View>
                                 <Text style={[styles.summaryValue, { color: colors.text }]}>
                                     {MOCK_STUDENT_ATTENDANCE.length}
                                 </Text>
@@ -236,16 +255,36 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 2,
     },
+    summaryHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 16,
+        gap: 12,
+    },
+    summaryIconContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     summaryTitle: {
         fontSize: 18,
         fontWeight: '800',
-        marginBottom: 16,
     },
     summaryStats: {
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
     summaryItem: {
+        alignItems: 'center',
+        gap: 8,
+    },
+    summaryItemIcon: {
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        justifyContent: 'center',
         alignItems: 'center',
     },
     summaryValue: {
@@ -277,26 +316,45 @@ const styles = StyleSheet.create({
     },
     courseHeader: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginBottom: 16,
         gap: 12,
     },
-    courseCodeBadge: {
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 8,
-    },
-    courseCode: {
-        fontSize: 12,
-        fontWeight: '700',
+    courseIconContainer: {
+        width: 48,
+        height: 48,
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     courseInfo: {
         flex: 1,
     },
+    courseTitleRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 8,
+        flexWrap: 'wrap',
+    },
+    courseCodeBadge: {
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 6,
+    },
+    courseCode: {
+        fontSize: 11,
+        fontWeight: '700',
+    },
     courseName: {
         fontSize: 16,
         fontWeight: '700',
-        marginBottom: 4,
+        flex: 1,
+    },
+    instructorRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
     },
     instructorName: {
         fontSize: 13,

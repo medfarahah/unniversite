@@ -36,26 +36,26 @@ const GradeManagementContext = createContext<GradeManagementContextType | undefi
 
 export const GradeManagementProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [students, setStudents] = useState<Student[]>([
-        { id: '20230889', name: 'Abdifah Ahmed', department: 'Computer Science', level: '3rd Year', attendance: 0.92, grade: 'A-' },
-        { id: '20230999', name: 'Aisha Hassan', department: 'Computer Science', level: '3rd Year', attendance: 0.98, grade: 'A' },
-        { id: '20230442', name: 'Med Omar', department: 'Computer Science', level: '3rd Year', attendance: 0.85, grade: 'B+' },
-        { id: '20230115', name: 'Fatima Ali', department: 'Computer Science', level: '3rd Year', attendance: 0.95, grade: 'A' },
-        { id: '20230773', name: 'Hassan Mohamed', department: 'Computer Science', level: '3rd Year', attendance: 0.70, grade: 'B' },
+        { id: '20230889', name: 'Abdifatah Ismal', department: 'Computer Science', level: '3rd Year', attendance: 0.92, grade: '17/20' },
+        { id: '20230999', name: 'Mohamed Farah', department: 'Computer Science', level: '3rd Year', attendance: 0.98, grade: '18/20' },
+        { id: '20230442', name: 'Med Omar', department: 'Computer Science', level: '3rd Year', attendance: 0.85, grade: '16/20' },
+        { id: '20230115', name: 'Fatima Ali', department: 'Computer Science', level: '3rd Year', attendance: 0.95, grade: '18/20' },
+        { id: '20230773', name: 'Hassan Mohamed', department: 'Computer Science', level: '3rd Year', attendance: 0.70, grade: '15/20' },
     ]);
 
     const [grades, setGrades] = useState<SemesterGrade[]>([
         {
             id: 's1', semester: 'Semester 5', gpa: '3.8', courses: [
-                { name: 'Operating Systems', grade: 'A', credits: 4 },
-                { name: 'Computer Networks', grade: 'A-', credits: 3 },
-                { name: 'Human Computer Interaction', grade: 'B+', credits: 3 },
+                { name: 'Operating Systems', grade: '18/20', credits: 4 },
+                { name: 'Computer Networks', grade: '17/20', credits: 3 },
+                { name: 'Human Computer Interaction', grade: '16/20', credits: 3 },
             ]
         },
         {
             id: 's2', semester: 'Semester 4', gpa: '3.6', courses: [
-                { name: 'Data Structures', grade: 'A', credits: 4 },
-                { name: 'Discrete Math', grade: 'B', credits: 3 },
-                { name: 'OOP', grade: 'A', credits: 4 },
+                { name: 'Data Structures', grade: '18/20', credits: 4 },
+                { name: 'Discrete Math', grade: '15/20', credits: 3 },
+                { name: 'OOP', grade: '18/20', credits: 4 },
             ]
         },
     ]);
@@ -64,7 +64,7 @@ export const GradeManagementProvider: React.FC<{ children: ReactNode }> = ({ chi
         const newStudent: Student = {
             ...studentData,
             attendance: 0,
-            grade: 'N/A',
+            grade: '0/20',
         };
         setStudents(prev => [...prev, newStudent]);
     };

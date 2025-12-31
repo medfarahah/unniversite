@@ -1,12 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
 
 const { width } = Dimensions.get('window');
+
+type ViewStyle = 'card' | 'line';
 
 interface MenuItem {
     title: string;
@@ -22,6 +24,7 @@ export default function MenuScreen() {
     const { user } = useUser();
     const { colors } = useTheme();
     const router = useRouter();
+    const [viewStyle, setViewStyle] = useState<ViewStyle>('card');
 
     const isAdmin = user?.role === 'admin';
     const isTeacher = user?.role === 'teacher';
@@ -31,6 +34,7 @@ export default function MenuScreen() {
     const allMenuItems: MenuItem[] = [
         // Academic Features
         { title: t('tabs.timetable'), icon: 'calendar', color: '#3B82F6', route: '/timetable', category: 'academic' },
+        { title: 'Courses', icon: 'book', color: '#8B5CF6', route: '/(screens)/courses', category: 'academic' },
         { title: t('tabs.grades'), icon: 'school', color: '#F59E0B', route: '/grades', category: 'academic' },
         { title: 'Exam Calendar', icon: 'calendar-outline', color: '#EC4899', route: '/(screens)/exam-calendar', category: 'academic' },
         { title: 'Academic Status', icon: 'document-text', color: '#10B981', route: '/(screens)/academic-status', category: 'academic' },
@@ -47,6 +51,7 @@ export default function MenuScreen() {
         { title: 'Resources', icon: 'document-text', color: '#8B5CF6', route: '/(screens)/resources', category: 'teacher', role: 'teacher' },
         
         // Student Tools
+        { title: 'Student Card', icon: 'card', color: '#6366F1', route: '/(screens)/student-card', category: 'student', role: 'student' },
         { title: 'Attendance', icon: 'checkmark-circle', color: '#22C55E', route: '/(screens)/attendance', category: 'student', role: 'student' },
         { title: 'Resources', icon: 'folder', color: '#8B5CF6', route: '/(screens)/resources', category: 'student', role: 'student' },
         { title: 'Chat', icon: 'chatbubble', color: '#10B981', route: '/(screens)/chat', category: 'student', role: 'student' },
@@ -82,14 +87,34 @@ export default function MenuScreen() {
 
     const MenuItemCard = ({ item }: { item: MenuItem }) => (
         <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: colors.surface }]}
+            style={[styles.menuCard, { backgroundColor: colors.surface, borderColor: colors.border }]}
+            onPress={() => router.push(item.route)}
+            activeOpacity={0.7}
+        >
+            <View style={[styles.menuCardIcon, { backgroundColor: item.color + '20' }]}>
+                <Ionicons name={item.icon as any} color={item.color} size={32} />
+            </View>
+            <Text style={[styles.menuCardText, { color: colors.text }]} numberOfLines={2}>
+                {item.title}
+            </Text>
+            <View style={[styles.menuCardBadge, { backgroundColor: item.color + '10' }]}>
+                <Ionicons name="arrow-forward-circle" size={16} color={item.color} />
+            </View>
+        </TouchableOpacity>
+    );
+
+    const MenuItemLine = ({ item }: { item: MenuItem }) => (
+        <TouchableOpacity
+            style={[styles.menuItemLine, { backgroundColor: colors.surface, borderLeftColor: item.color }]}
             onPress={() => router.push(item.route)}
         >
-            <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
-                <Ionicons name={item.icon as any} color={item.color} size={24} />
+            <View style={styles.menuItemLineContent}>
+                <View style={[styles.menuIconLine, { backgroundColor: item.color + '15' }]}>
+                    <Ionicons name={item.icon as any} color={item.color} size={20} />
+                </View>
+                <Text style={[styles.menuItemLineText, { color: colors.text }]}>{item.title}</Text>
             </View>
-            <Text style={[styles.menuItemText, { color: colors.text }]}>{item.title}</Text>
-            <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+            <Ionicons name="chevron-forward" size={18} color={colors.textSecondary} />
         </TouchableOpacity>
     );
 
@@ -101,6 +126,56 @@ export default function MenuScreen() {
                     <Text style={styles.headerSubtitle}>{t('menu.subtitle')}</Text>
                 </View>
                 <Ionicons name="apps-outline" color="rgba(255,255,255,0.3)" size={60} style={styles.headerIcon} />
+            </View>
+
+            {/* View Style Selector */}
+            <View style={styles.styleSelectorContainer}>
+                <View style={[styles.styleSelector, { backgroundColor: colors.surface }]}>
+                    <TouchableOpacity
+                        style={[
+                            styles.styleButton,
+                            {
+                                backgroundColor: viewStyle === 'card' ? colors.primary : 'transparent',
+                                borderColor: colors.border,
+                            }
+                        ]}
+                        onPress={() => setViewStyle('card')}
+                    >
+                        <Ionicons 
+                            name="grid-outline" 
+                            size={20} 
+                            color={viewStyle === 'card' ? '#FFF' : colors.textSecondary} 
+                        />
+                        <Text style={[
+                            styles.styleButtonText,
+                            { color: viewStyle === 'card' ? '#FFF' : colors.textSecondary }
+                        ]}>
+                            {t('menu.cardView')}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            styles.styleButton,
+                            {
+                                backgroundColor: viewStyle === 'line' ? colors.primary : 'transparent',
+                                borderColor: colors.border,
+                            }
+                        ]}
+                        onPress={() => setViewStyle('line')}
+                    >
+                        <Ionicons 
+                            name="list-outline" 
+                            size={20} 
+                            color={viewStyle === 'line' ? '#FFF' : colors.textSecondary} 
+                        />
+                        <Text style={[
+                            styles.styleButtonText,
+                            { color: viewStyle === 'line' ? '#FFF' : colors.textSecondary }
+                        ]}>
+                            {t('menu.lineView')}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <View style={styles.content}>
@@ -116,9 +191,13 @@ export default function MenuScreen() {
                                 {categories[category as keyof typeof categories]?.title || category}
                             </Text>
                         </View>
-                        <View style={styles.menuItemsContainer}>
+                        <View style={viewStyle === 'card' ? styles.menuItemsContainer : styles.menuItemsLineContainer}>
                             {items.map((item, index) => (
-                                <MenuItemCard key={`${item.route}-${index}`} item={item} />
+                                viewStyle === 'card' ? (
+                                    <MenuItemCard key={`${item.route}-${index}`} item={item} />
+                                ) : (
+                                    <MenuItemLine key={`${item.route}-${index}`} item={item} />
+                                )
                             ))}
                         </View>
                     </View>
@@ -172,7 +251,49 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
     menuItemsContainer: {
-        gap: 8,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 12,
+    },
+    menuCard: {
+        width: (width - 52) / 2,
+        padding: 20,
+        borderRadius: 20,
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 140,
+        position: 'relative',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12,
+        elevation: 4,
+    },
+    menuCardIcon: {
+        width: 64,
+        height: 64,
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    menuCardText: {
+        fontSize: 14,
+        fontWeight: '700',
+        textAlign: 'center',
+        marginBottom: 8,
+        lineHeight: 20,
+    },
+    menuCardBadge: {
+        position: 'absolute',
+        top: 12,
+        right: 12,
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     menuItem: {
         flexDirection: 'row',
@@ -197,6 +318,66 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         fontWeight: '600',
+    },
+    styleSelectorContainer: {
+        paddingHorizontal: 20,
+        paddingTop: 16,
+        paddingBottom: 8,
+    },
+    styleSelector: {
+        flexDirection: 'row',
+        borderRadius: 12,
+        padding: 4,
+        gap: 4,
+    },
+    styleButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        borderWidth: 1,
+        gap: 6,
+    },
+    styleButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
+    },
+    menuItemsLineContainer: {
+        gap: 4,
+    },
+    menuItemLine: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 12,
+        borderRadius: 12,
+        borderLeftWidth: 4,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        elevation: 1,
+    },
+    menuItemLineContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+    },
+    menuIconLine: {
+        width: 36,
+        height: 36,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 12,
+    },
+    menuItemLineText: {
+        fontSize: 15,
+        fontWeight: '600',
+        flex: 1,
     },
 });
 

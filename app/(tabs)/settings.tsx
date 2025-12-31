@@ -74,6 +74,23 @@ export default function SettingsScreen() {
                     />
                 </View>
             </View>
+
+            {/* Copyright Section */}
+            <View style={styles.section}>
+                <View style={[styles.card, { backgroundColor: colors.surface }]}>
+                    <View style={styles.copyrightContainer}>
+                        <Text style={[styles.copyrightText, { color: colors.textSecondary }]}>
+                            © 2025 MFA
+                        </Text>
+                        <Text style={[styles.copyrightSubtext, { color: colors.textSecondary }]}>
+                            All rights reserved
+                        </Text>
+                        <Text style={[styles.copyrightApp, { color: colors.textSecondary }]}>
+                            Académie Arabe - Systems LMS universitte*
+                        </Text>
+                    </View>
+                </View>
+            </View>
         </ScrollView>
     );
 }
@@ -132,5 +149,22 @@ const styles = StyleSheet.create({
     },
     value: {
         fontSize: 14,
+    },
+    copyrightContainer: {
+        padding: 24,
+        alignItems: 'center',
+    },
+    copyrightText: {
+        fontSize: 14,
+        fontWeight: '700',
+        marginBottom: 4,
+    },
+    copyrightSubtext: {
+        fontSize: 12,
+        marginBottom: 8,
+    },
+    copyrightApp: {
+        fontSize: 11,
+        textAlign: 'center',
     },
 });

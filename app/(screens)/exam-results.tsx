@@ -18,9 +18,11 @@ export default function ExamResultsScreen() {
     const averageScore = MOCK_EXAM_RESULTS.reduce((sum, result) => sum + result.score, 0) / MOCK_EXAM_RESULTS.length;
 
     const getGradeColor = (grade: string) => {
-        if (grade.startsWith('A')) return colors.success;
-        if (grade.startsWith('B')) return colors.primary;
-        if (grade.startsWith('C')) return colors.accent;
+        const gradeValue = parseFloat(grade.split('/')[0]);
+        if (gradeValue >= 16) return colors.success;
+        if (gradeValue >= 14) return colors.primary;
+        if (gradeValue >= 12) return colors.accent;
+        if (gradeValue >= 10) return colors.accent;
         return colors.error;
     };
 
@@ -30,7 +32,7 @@ export default function ExamResultsScreen() {
                 <View>
                     <Text style={styles.summaryTitle}>{t('examResults.title')}</Text>
                     <Text style={styles.summaryLabel}>{t('examResults.averageScore')}</Text>
-                    <Text style={styles.summaryValue}>{averageScore.toFixed(1)}%</Text>
+                    <Text style={styles.summaryValue}>{averageScore.toFixed(1)}/20</Text>
                 </View>
                 <Ionicons name="trophy-outline" color="rgba(255,255,255,0.3)" size={80} style={styles.bgIcon} />
             </View>
@@ -130,9 +132,9 @@ export default function ExamResultsScreen() {
                                 <View style={styles.scoreRow}>
                                     <View style={styles.scoreContainer}>
                                         <Text style={[styles.scoreLabel, { color: colors.textSecondary }]}>{t('examResults.score')}</Text>
-                                        <Text style={[styles.scoreValue, { color: colors.text }]}>
-                                            {result.score} / {result.maxScore}
-                                        </Text>
+                                    <Text style={[styles.scoreValue, { color: colors.text }]}>
+                                        {result.score.toFixed(1)} / {result.maxScore}
+                                    </Text>
                                     </View>
                                     <View style={[styles.gradeBadge, { backgroundColor: getGradeColor(result.grade) + '15' }]}>
                                         <Text style={[styles.gradeText, { color: getGradeColor(result.grade) }]}>

@@ -27,7 +27,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (role === 'admin') {
             setUser({
                 id: 'ADM-001',
-                name: 'Dean Arthur Morgan',
+                name: 'Dr. Ahmed Hassan',
                 role: 'admin',
                 staffId: 'STAFF-12345',
                 title: 'University Dean',
@@ -35,7 +35,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } else if (role === 'teacher') {
             setUser({
                 id: 'TCH-007',
-                name: 'Dr. Elena Vance',
+                name: 'Dr. Aisha Ahmed',
                 role: 'teacher',
                 department: 'Computer Science',
                 staffId: 'STAFF-55667',
@@ -44,7 +44,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } else if (role === 'delegate') {
             setUser({
                 id: '20230999',
-                name: 'Aisha Hassan',
+                name: 'Mohamed Farah',
                 role: 'delegate',
                 department: 'Computer Science',
                 level: '3rd Year',
@@ -53,7 +53,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } else {
             setUser({
                 id: '20230889',
-                name: 'Abdifah Ahmed',
+                name: 'Abdifatah Ismal',
                 role: 'student',
                 department: 'Computer Science',
                 level: '3rd Year',

@@ -1,8 +1,13 @@
+/**
+ * Copyright © 2025 MFA. All rights reserved.
+ * Académie Arabe - Systems LMS universitte*
+ */
+
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { DEMO_ACCOUNTS } from '../constants/accounts';
 import { useTheme } from '../context/ThemeContext';
 import { UserRole, useUser } from '../context/UserContext';
@@ -54,11 +59,15 @@ export default function LoginScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <View style={[styles.logo, { backgroundColor: colors.primary }]}>
-              <Ionicons name="school" color="#FFF" size={48} />
+            <View style={styles.logoContainer}>
+              <Image
+                source={require('../assets/images/logo.jpeg')}
+                style={styles.logo}
+                resizeMode="contain"
+              />
             </View>
-            <Text style={[styles.title, { color: colors.text }]}>UniConnect</Text>
-            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>University Management System</Text>
+            <Text style={[styles.title, { color: colors.text }]}>Académie Arabe</Text>
+            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Systems LMS universitte*</Text>
           </View>
 
           <View style={styles.form}>
@@ -128,6 +137,16 @@ export default function LoginScreen() {
               ))}
             </View>
           </View>
+
+          {/* Copyright Footer */}
+          <View style={styles.copyrightFooter}>
+            <Text style={[styles.copyrightText, { color: colors.textSecondary }]}>
+              © 2025 MFA. All rights reserved.
+            </Text>
+            <Text style={[styles.copyrightSubtext, { color: colors.textSecondary }]}>
+              Académie Arabe - Systems LMS universitte*
+            </Text>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -148,18 +167,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
-  logo: {
-    width: 80,
-    height: 80,
-    borderRadius: 22,
+  logoContainer: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 15,
-    elevation: 8,
+  },
+  logo: {
+    width: '100%',
+    height: '100%',
   },
   title: {
     fontSize: 28,
@@ -244,5 +261,19 @@ const styles = StyleSheet.create({
   demoChipText: {
     fontSize: 11,
     fontWeight: '700',
+  },
+  copyrightFooter: {
+    marginTop: 32,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  copyrightText: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  copyrightSubtext: {
+    fontSize: 11,
+    opacity: 0.7,
   },
 });

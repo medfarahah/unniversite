@@ -15,6 +15,15 @@ export default function GradesScreen() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
     const [showAddGradeModal, setShowAddGradeModal] = useState(false);
+
+    const getGradeColor = (grade: string) => {
+        const gradeValue = parseFloat(grade.split('/')[0]);
+        if (gradeValue >= 16) return colors.success; // Excellent (Très Bien)
+        if (gradeValue >= 14) return colors.primary; // Good (Bien)
+        if (gradeValue >= 12) return colors.accent; // Satisfactory (Assez Bien)
+        if (gradeValue >= 10) return colors.accent; // Pass (Passable)
+        return colors.error; // Fail
+    };
     
     // Add Student Form State
     const [newStudent, setNewStudent] = useState({
@@ -63,9 +72,26 @@ export default function GradesScreen() {
             return;
         }
 
+        // Format grade to French 20-point system
+        let formattedGrade = newGrade.grade;
+        if (!formattedGrade.includes('/')) {
+            const gradeNum = parseFloat(formattedGrade);
+            if (isNaN(gradeNum) || gradeNum < 0 || gradeNum > 20) {
+                Alert.alert('Error', 'Grade must be between 0 and 20');
+                return;
+            }
+            formattedGrade = `${gradeNum}/20`;
+        } else {
+            const gradeValue = parseFloat(formattedGrade.split('/')[0]);
+            if (isNaN(gradeValue) || gradeValue < 0 || gradeValue > 20) {
+                Alert.alert('Error', 'Grade must be between 0 and 20');
+                return;
+            }
+        }
+
         addGrade(newGrade.studentId, {
             name: newGrade.courseName,
-            grade: newGrade.grade,
+            grade: formattedGrade,
             credits: creditsNum,
         });
 
@@ -142,8 +168,8 @@ export default function GradesScreen() {
                                             {student.department} • {student.level}
                                         </Text>
                                     </View>
-                                    <View style={[styles.gradeBadge, { backgroundColor: colors.success + '15' }]}>
-                                        <Text style={[styles.gradeText, { color: colors.success }]}>{student.grade}</Text>
+                                    <View style={[styles.gradeBadge, { backgroundColor: getGradeColor(student.grade) + '15' }]}>
+                                        <Text style={[styles.gradeText, { color: getGradeColor(student.grade) }]}>{student.grade}</Text>
                                     </View>
                                 </TouchableOpacity>
                             ))
@@ -252,10 +278,11 @@ export default function GradesScreen() {
                             />
                             <TextInput
                                 style={[styles.input, { color: colors.text, borderColor: colors.border, backgroundColor: colors.background }]}
-                                placeholder={t('grades.enterGrade')}
+                                placeholder="Enter grade (e.g., 17/20 or 17)"
                                 placeholderTextColor={colors.textSecondary}
                                 value={newGrade.grade}
                                 onChangeText={(text) => setNewGrade({ ...newGrade, grade: text })}
+                                keyboardType="decimal-pad"
                             />
                             <TextInput
                                 style={[styles.input, { color: colors.text, borderColor: colors.border, backgroundColor: colors.background }]}
@@ -330,8 +357,8 @@ export default function GradesScreen() {
                                     <Text style={[styles.courseName, { color: colors.text }]}>{course.name}</Text>
                                     <Text style={[styles.courseCredits, { color: colors.textSecondary }]}>{course.credits} {t('grades.credits')}</Text>
                                 </View>
-                                <View style={[styles.gradeBadge, { backgroundColor: colors.primary + '15' }]}>
-                                    <Text style={[styles.gradeText, { color: colors.primary }]}>{course.grade}</Text>
+                                <View style={[styles.gradeBadge, { backgroundColor: getGradeColor(course.grade) + '15' }]}>
+                                    <Text style={[styles.gradeText, { color: getGradeColor(course.grade) }]}>{course.grade}</Text>
                                 </View>
                             </View>
                         ))}

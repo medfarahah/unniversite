@@ -2,6 +2,7 @@
   "name": "unniversite",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "copyright": "Copyright © 2025 MFA. All rights reserved.",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",

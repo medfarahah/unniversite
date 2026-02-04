@@ -1,3 +1,8 @@
+/**
+ * Copyright © 2025 MFA (Med Farah). All rights reserved.
+ * Académie Arabe - Systems LMS universitte*
+ */
+
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -80,7 +85,7 @@ export default function SettingsScreen() {
                 <View style={[styles.card, { backgroundColor: colors.surface }]}>
                     <View style={styles.copyrightContainer}>
                         <Text style={[styles.copyrightText, { color: colors.textSecondary }]}>
-                            © 2025 MFA
+                            © 2025 MFA (Med Farah)
                         </Text>
                         <Text style={[styles.copyrightSubtext, { color: colors.textSecondary }]}>
                             All rights reserved

@@ -1,9 +1,14 @@
+/**
+ * Copyright © 2025 MFA (Med Farah). All rights reserved.
+ * Académie Arabe - Systems LMS universitte*
+ */
+
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Image } from 'expo-image';
 import { MOCK_ACADEMIC_STATUS, MOCK_ANNOUNCEMENTS } from '../../constants/mockData';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
@@ -113,8 +118,8 @@ export default function HomeScreen() {
                 {/* Quick Menu Section */}
                 <View style={styles.quickMenuSection}>
                     <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('home.quickAccess')}</Text>
-                    <ScrollView 
-                        horizontal 
+                    <ScrollView
+                        horizontal
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.quickMenuScrollContent}
                         style={styles.quickMenuScroll}

@@ -1,14 +1,14 @@
 /**
- * Copyright © 2025 MFA. All rights reserved.
+ * Copyright © 2025 MFA (Med Farah). All rights reserved.
  * Académie Arabe - Systems LMS universitte*
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Image } from 'expo-image';
 import { DEMO_ACCOUNTS } from '../constants/accounts';
 import { useTheme } from '../context/ThemeContext';
 import { UserRole, useUser } from '../context/UserContext';

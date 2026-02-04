@@ -1,5 +1,5 @@
 /**
- * Copyright © 2025 MFA. All rights reserved.
+ * Copyright © 2025 MFA (Med Farah). All rights reserved.
  * Académie Arabe - Systems LMS universitte*
  */
 
@@ -43,10 +43,10 @@ export default function TermCertificateScreen() {
     const handleShare = async () => {
         try {
             await Share.share({
-                message: t('certificate.shareMessage', { 
-                    name: user?.name, 
+                message: t('certificate.shareMessage', {
+                    name: user?.name,
                     semester: selectedSemester,
-                    gpa: currentSemester?.gpa 
+                    gpa: currentSemester?.gpa
                 }),
                 title: t('certificate.shareTitle'),
             });
@@ -69,11 +69,11 @@ export default function TermCertificateScreen() {
                                 key={semester.id}
                                 style={[
                                     styles.semesterCard,
-                                    selectedSemester === semester.name && { 
+                                    selectedSemester === semester.name && {
                                         backgroundColor: colors.primary,
                                         borderColor: colors.primary,
                                     },
-                                    selectedSemester !== semester.name && { 
+                                    selectedSemester !== semester.name && {
                                         backgroundColor: colors.surface,
                                         borderColor: colors.border,
                                     },
@@ -280,10 +280,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    logoImage: {
-        width: '100%',
-        height: '100%',
-    },
+
     universityName: {
         fontSize: 24,
         fontWeight: '800',

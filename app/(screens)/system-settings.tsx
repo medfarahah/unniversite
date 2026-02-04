@@ -1,5 +1,5 @@
 /**
- * Copyright © 2025 MFA. All rights reserved.
+ * Copyright © 2025 MFA (Med Farah). All rights reserved.
  * Académie Arabe - Systems LMS universitte*
  */
 
@@ -222,4 +222,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 });
+
 
